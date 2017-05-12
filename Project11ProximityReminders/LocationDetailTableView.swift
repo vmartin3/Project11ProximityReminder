@@ -77,10 +77,12 @@ class LocationDetailTableView: UITableViewController {
         
         CoreDataController.sharedInstance.save(reminderText: self.reminderText!, date: self.date!, longitude: (self.location?.placemark.coordinate.longitude)!, latitude: (self.location?.placemark.coordinate.latitude)!, completed: false)
         
+        let notificationController = Notification()
+        notificationController.triggerNotification()
+        
         let mainPage = self.navigationController?.viewControllers[0] as! ReminderTableView
         mainPage.tableView.reloadData()
         self.navigationController?.popViewController(animated: true)
-        
     }
     
     @IBAction func unwindToDetail(segue: UIStoryboardSegue) {
