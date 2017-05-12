@@ -9,8 +9,6 @@
 import UIKit
 import MapKit
 
-var locationSelected: Bool = false
-
 class LocationSearchTableVC: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
@@ -28,8 +26,11 @@ class LocationSearchTableVC: UITableViewController, UISearchBarDelegate, UISearc
         super.viewDidLoad()
         self.navigationItem.titleView = searchBarController.searchBar
         LocationManager.sharedLocationInstance.determineMyCurrentLocation { (location) in
-            print(location)
         }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -51,28 +52,32 @@ class LocationSearchTableVC: UITableViewController, UISearchBarDelegate, UISearc
             self.matchingItems = response.mapItems
             self.tableView.reloadData()
         }
-        
     }
-
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func locationSetAlert(){
+        let alert = UIAlertController(title: "Reminder Location Set",
+                                      message: "You will be reminded when you get near \(destiationName!)",
+                                      preferredStyle: .alert)
+        let done = UIAlertAction(title: "Okay", style: .default) { (okaySelected) in
+            self.performSegue(withIdentifier: "unwindToDetailSegue", sender: self)
+        }
+        alert.addAction(done)
+        self.present(alert, animated: true)
     }
+}
 
+
+extension LocationSearchTableVC {
+    
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return matchingItems.count
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LocationCell")!
         let selectedItem = matchingItems[indexPath.row].placemark
@@ -87,22 +92,15 @@ class LocationSearchTableVC: UITableViewController, UISearchBarDelegate, UISearc
         let selectedItem = matchingItems[indexPath.row].placemark
         self.destinationCoordinates = selectedItem.coordinate
         self.destiationName = selectedItem.name
-        //dismiss(animated: true, completion: nil)
-        //unwind(for: , towardsViewController: LocationDetailTableView)
-        locationSelected = true
-        performSegue(withIdentifier: "unwindToDetailSegue", sender: self)
+        
+        locationSetAlert()
     }
     
+    
+    // MARK: - Navigation
     override func unwind(for unwindSegue: UIStoryboardSegue, towardsViewController subsequentVC: UIViewController) {
-      //  let detailVC = subsequentVC as! LocationDetailTableView
-            
-        //detailVC.reminderTextField = UITextField()
-       // et detailVC = unwindSegue.destination as! LocationDetailTableView
-        //detailVC.viewDidLoad()
-        //unwindSegue.source.navigationController?.reloadInputViews()
+
     }
-    
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "unwindToDetailSegue"{
@@ -110,8 +108,6 @@ class LocationSearchTableVC: UITableViewController, UISearchBarDelegate, UISearc
             detailVC.locationText = self.destiationName!
             detailVC.location = self.matchingItems[indexPathForSelection!]
             detailVC.locationisSet = true
-            //detailVC.reminderTextField = UITextField()
         }
     }
-
 }

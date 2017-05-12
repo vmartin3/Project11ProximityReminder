@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		768D53A71EC6011D003372E8 /* ShowAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768D53A61EC6011D003372E8 /* ShowAlert.swift */; };
-		768D53AB1EC6062B003372E8 /* DatePickerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768D53AA1EC6062B003372E8 /* DatePickerHelper.swift */; };
 		76BDE3711EC24A9800B49EC5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BDE3701EC24A9800B49EC5 /* AppDelegate.swift */; };
 		76BDE3761EC24A9800B49EC5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76BDE3741EC24A9800B49EC5 /* Main.storyboard */; };
 		76BDE3791EC24A9800B49EC5 /* Project11ProximityReminders.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 76BDE3771EC24A9800B49EC5 /* Project11ProximityReminders.xcdatamodeld */; };
@@ -45,7 +44,6 @@
 
 /* Begin PBXFileReference section */
 		768D53A61EC6011D003372E8 /* ShowAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowAlert.swift; sourceTree = "<group>"; };
-		768D53AA1EC6062B003372E8 /* DatePickerHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerHelper.swift; sourceTree = "<group>"; };
 		76BDE36D1EC24A9800B49EC5 /* Project11ProximityReminders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project11ProximityReminders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76BDE3701EC24A9800B49EC5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76BDE3751EC24A9800B49EC5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -126,7 +124,6 @@
 		768D53A51EC5FCB1003372E8 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				768D53AA1EC6062B003372E8 /* DatePickerHelper.swift */,
 				768D53A61EC6011D003372E8 /* ShowAlert.swift */,
 			);
 			name = Helpers;
@@ -255,6 +252,7 @@
 				TargetAttributes = {
 					76BDE36C1EC24A9800B49EC5 = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = Z394YH8B5F;
 						ProvisioningStyle = Automatic;
 					};
 					76BDE3831EC24A9800B49EC5 = {
@@ -322,7 +320,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				76BDE3A41EC2500700B49EC5 /* ReminderCell.swift in Sources */,
-				768D53AB1EC6062B003372E8 /* DatePickerHelper.swift in Sources */,
 				76BDE3711EC24A9800B49EC5 /* AppDelegate.swift in Sources */,
 				76D64C951EC40D7E0065E938 /* LocationManager.swift in Sources */,
 				76BDE3A61EC253B600B49EC5 /* LocationDetailTableView.swift in Sources */,
@@ -484,6 +481,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = Z394YH8B5F;
 				INFOPLIST_FILE = Project11ProximityReminders/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = VernonMartin.Project11ProximityReminders;
@@ -496,6 +494,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = Z394YH8B5F;
 				INFOPLIST_FILE = Project11ProximityReminders/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = VernonMartin.Project11ProximityReminders;

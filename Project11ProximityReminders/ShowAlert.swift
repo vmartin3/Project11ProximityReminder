@@ -18,9 +18,6 @@ struct ShowAlert{
         let alert = UIAlertController(title: title,
                                       message: message,
                                       preferredStyle: .alert)
-        let done = UIAlertAction(title: action,
-                                 style: .default)
-        alert.addAction(done)
         return alert
     }
 }

@@ -12,6 +12,7 @@ class ReminderCell: UITableViewCell, UITextFieldDelegate {
 
     @IBOutlet weak var moreInfoButton: UIButton!
     @IBOutlet weak var reminderTextField: UITextField!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         reminderTextField.delegate = self
@@ -19,8 +20,6 @@ class ReminderCell: UITableViewCell, UITextFieldDelegate {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {

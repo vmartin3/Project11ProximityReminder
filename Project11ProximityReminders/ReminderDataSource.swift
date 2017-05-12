@@ -21,15 +21,4 @@ class ReminderDataSource {
     
     var reminderDetailTable: LocationDetailTableView?
     
-//    init(longitude: Double, latitude: Double, date: Date, reminderText:String,completed:Bool) {
-//        self.longitude = longitude
-//        self.latitude = latitude
-//        self.date = date
-//        self.reminderText = reminderText
-//        self.completed = completed
-//    }
-    
-
-    
-
 }
