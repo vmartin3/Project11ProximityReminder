@@ -1,5 +1,5 @@
 //
-//  ReminderTableView.swift
+//  RemindersTableVC.swift
 //  Project11ProximityReminders
 //
 //  Created by Vernon G Martin on 5/9/17.
@@ -9,9 +9,9 @@
 import UIKit
 import CoreData
 
-class ReminderTableView: UITableViewController{
+class RemindersTableVC: UITableViewController{
     
-    var reminderText:String?
+    var reminderText:String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,9 +23,24 @@ class ReminderTableView: UITableViewController{
     }
 }
 
+//MARK: - UITableView extenstion to get last row
+extension UITableView {
+    
+    var lastIndexPath: IndexPath? {
+        
+        let lastSectionIndex = numberOfSections - 1
+        guard lastSectionIndex >= 0 else { return nil }
+        
+        let lastIndexInLastSection = numberOfRows(inSection: lastSectionIndex) - 1
+        guard lastIndexInLastSection >= 0 else { return nil }
+        
+        return IndexPath(row: lastIndexInLastSection, section: lastSectionIndex)
+    }
+}
+
 
 // MARK: - Table view data source
-extension ReminderTableView {
+extension RemindersTableVC {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -40,7 +55,7 @@ extension ReminderTableView {
         
         if !ReminderDataSource.allReminders.isEmpty && indexPath.row < ReminderDataSource.allReminders.count{
             guard let reminderText = ReminderDataSource.allReminders[indexPath.row].value(forKey: "reminderText") as? String else {
-                print("Error Setting Post Text")
+                print("Error Setting Reminder Details")
                 return cell
             }
             cell.reminderTextField.text = reminderText
@@ -50,31 +65,33 @@ extension ReminderTableView {
         return cell
     }
     
+    //Makes the last row - where the reminder entry cell is non deletable
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if (indexPath.row == tableView.lastIndexPath?.row){
+            return false
+        }else {
+            return true
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete)
         {
-            CoreDataController.sharedInstance.context.delete(ReminderDataSource.allReminders[indexPath.row] as NSManagedObject)
-            ReminderDataSource.allReminders.remove(at: indexPath.row)
-            self.tableView.deleteRows(at: [indexPath], with: .fade)
-            
-            var error:Error? = nil;
-            do{
-                try CoreDataController.sharedInstance.context.save()
-            }catch{
-                print("Unable to save after item deletion")
-            }
+                CoreDataController.sharedInstance.deleteReminder(reminderObject: ReminderDataSource.allReminders[indexPath.row] as NSManagedObject, reminderNumber: indexPath.row)
+                self.tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
     
     //MARK: - Navigation
+    //Pass reminder details to the next ViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let sender = sender as! UIButton
         let cell: ReminderCell = sender.superview?.superview as! ReminderCell
         reminderText = cell.reminderTextField.text!
         
         if segue.identifier == "DetailSegue"{
-            let detailVC = segue.destination as! LocationDetailTableView
-            detailVC.reminderText = reminderText
+            let detailVC = segue.destination as! ReminderDetailsVC
+            detailVC.reminder.reminderText = reminderText!
         }
     }
 }

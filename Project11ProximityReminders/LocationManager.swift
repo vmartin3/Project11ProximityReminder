@@ -9,13 +9,17 @@
 import UIKit
 import CoreLocation
 import MapKit
+import UserNotifications
 
-class LocationManager: CLLocationManager, CLLocationManagerDelegate{
+class LocationManager: CLLocationManager {
     
     //Create Shared instance of Location Manager Class
     static let sharedLocationInstance = LocationManager()
     var locationManager:CLLocationManager!
-    private var completion: ((String) -> Void)?
+    var region: CLCircularRegion?
+    var reminder: ReminderDataSource?
+    var reminderDate: Date?
+    var completion: ((String) -> Void)?
     
     //Requests Permission for Location and starts getting users current location
     func determineMyCurrentLocation(completion: @escaping ((String) -> Void)){
@@ -30,18 +34,57 @@ class LocationManager: CLLocationManager, CLLocationManagerDelegate{
         }
     }
     
-    //Finds users location and shares it using location manager
+    //Sets region of where the user should be notified of reminder
+    func setReminderRegion(reminder: ReminderDataSource){
+        self.reminder = reminder
+        let coordinates = CLLocationCoordinate2D(latitude: reminder.latitude!, longitude: reminder.longitude!)
+        self.region = CLCircularRegion(center: coordinates, radius: 200, identifier: reminder.reminderText!)
+        locationManager.startMonitoring(for: region!)
+    }
+    
+    //Sets date for reminder
+    func setReminderDate(reminder: ReminderDataSource){
+        self.reminder = reminder
+        self.reminderDate = reminder.date
+        let notification = Notification(reminder: self.reminder!)
+        notification.triggerTimeBasedNotifiaction(reminderDate: (self.reminder?.date)!)
+    }
+}
+
+
+extension LocationManager: CLLocationManagerDelegate {
+    
+    //Finds users current location and shares it using location manager
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         CLGeocoder().reverseGeocodeLocation(manager.location!) { (placemarks, error) in
             self.locationManager.stopUpdatingLocation()
             if locations.first != nil{
-               self.completion!("locations: \(locations.first!)")
+                let city = placemarks?[0].addressDictionary?["City"] as! String
+                let state = placemarks?[0].addressDictionary?["State"] as! String
+                
+                self.completion!("Users current location is: \(city), \(state)")
             }
         }
     }
     
+//    func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
+//        print("Monitoring failed for region with identifier: \(self.region.identifier)")
+//    }
+    
     //If there is an error while getting the users location
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Error while updating location \(error.localizedDescription)")
+    }
+    
+    //Begin monitoring users location
+    func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
+        print("Now monitoring region \(region.identifier)")
+    }
+    
+    //When the user enters a location trigger notifiation to be sent
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        print("User has entered monitored region")
+        let notification = Notification(reminder: self.reminder!)
+        notification.triggerLocationNotification(region: self.region!)
     }
 }

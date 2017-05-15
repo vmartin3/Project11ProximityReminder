@@ -45,6 +45,16 @@ class CoreDataController: NSManagedObject {
         }
     }
     
+    func deleteReminder(reminderObject: NSManagedObject, reminderNumber: Int){
+        do{
+            context.delete(reminderObject)
+            ReminderDataSource.allReminders.remove(at: reminderNumber)
+            try context.save()
+        } catch let error as NSError {
+            print("Could not delete remidner \(error)")
+        }
+    }
+    
     //Attempts to fetch all reminders from core data, assigns it to the arrary of all reminders
     func fetch(){
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Reminder")

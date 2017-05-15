@@ -13,7 +13,7 @@
         <!--Reminders-->
         <scene sceneID="vVW-8w-zei">
             <objects>
-                <tableViewController id="Tcf-Ar-UmB" customClass="ReminderTableView" customModule="Project11ProximityReminders" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="Tcf-Ar-UmB" customClass="RemindersTableVC" customModule="Project11ProximityReminders" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="4Y6-Qb-M9c">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -75,7 +75,7 @@
         <!--Reminder Details-->
         <scene sceneID="ynY-dA-Peq">
             <objects>
-                <tableViewController id="bno-mq-ACx" customClass="LocationDetailTableView" customModule="Project11ProximityReminders" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="bno-mq-ACx" customClass="ReminderDetailsVC" customModule="Project11ProximityReminders" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="3ga-hq-RHv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -168,11 +168,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LFw-B2-Cs2">
-                                                    <rect key="frame" x="29" y="8" width="334" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LFw-B2-Cs2">
+                                                    <rect key="frame" x="23" y="8" width="334" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -222,17 +222,17 @@
                                         <rect key="frame" x="0.0" y="343.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JCQ-Cx-uRc" id="Pod-uW-xQo">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date Picker" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8jE-dK-EAj">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8jE-dK-EAj">
                                                     <rect key="frame" x="25" y="8" width="342" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="JSi-6G-t9J"/>
                                                         <constraint firstAttribute="width" constant="342" id="Vqa-ff-cYe"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -273,20 +273,10 @@
             </objects>
             <point key="canvasLocation" x="1864.8" y="50.824587706146929"/>
         </scene>
-        <!--Location Search TableVC-->
+        <!--Location SearchVC-->
         <scene sceneID="zdL-SW-8Ci">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Re1-J3-Ksv" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="uYJ-If-YZ7">
-                    <connections>
-                        <outlet property="delegate" destination="wrA-6u-ZfE" id="yJD-Zp-Yyh"/>
-                        <outlet property="searchContentsController" destination="wrA-6u-ZfE" id="PXd-uh-NDP"/>
-                        <outlet property="searchResultsDataSource" destination="wrA-6u-ZfE" id="dqU-AR-u7H"/>
-                        <outlet property="searchResultsDelegate" destination="wrA-6u-ZfE" id="fit-ZO-WRh"/>
-                    </connections>
-                </searchDisplayController>
-                <exit id="CYw-0D-v59" userLabel="Exit" sceneMemberID="exit"/>
-                <tableViewController storyboardIdentifier="LocationSearchTableVC" id="wrA-6u-ZfE" customClass="LocationSearchTableVC" customModule="Project11ProximityReminders" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="LocationSearchTableVC" id="wrA-6u-ZfE" customClass="LocationSearchVC" customModule="Project11ProximityReminders" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="eix-DB-NLW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -300,13 +290,33 @@
                             </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="LocationCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="LocationCell" id="FNh-bc-K7R">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="LocationCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="LocationCell" id="FNh-bc-K7R" customClass="LocationCell" customModule="Project11ProximityReminders" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FNh-bc-K7R" id="ikI-ZH-0gr">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Location Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G9S-NO-TM7">
+                                            <rect key="frame" x="8" y="22" width="351" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Location Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zpM-rQ-Krn">
+                                            <rect key="frame" x="8" y="0.0" width="351" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="locationAddressLabel" destination="G9S-NO-TM7" id="PDx-gQ-ghE"/>
+                                    <outlet property="locationNameLabel" destination="zpM-rQ-Krn" id="mBw-Le-4rt"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -321,6 +331,16 @@
                         <segue destination="CYw-0D-v59" kind="unwind" identifier="unwindToDetailSegue" unwindAction="unwindToDetailWithSegue:" id="1FC-gX-WBx"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Re1-J3-Ksv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="uYJ-If-YZ7">
+                    <connections>
+                        <outlet property="delegate" destination="wrA-6u-ZfE" id="yJD-Zp-Yyh"/>
+                        <outlet property="searchContentsController" destination="wrA-6u-ZfE" id="PXd-uh-NDP"/>
+                        <outlet property="searchResultsDataSource" destination="wrA-6u-ZfE" id="dqU-AR-u7H"/>
+                        <outlet property="searchResultsDelegate" destination="wrA-6u-ZfE" id="fit-ZO-WRh"/>
+                    </connections>
+                </searchDisplayController>
+                <exit id="CYw-0D-v59" userLabel="Exit" sceneMemberID="exit"/>
                 <searchDisplayController id="2cL-Fl-FpN">
                     <connections>
                         <outlet property="delegate" destination="wrA-6u-ZfE" id="j48-1j-12q"/>
@@ -331,7 +351,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="2738" y="51"/>
+            <point key="canvasLocation" x="2736.8000000000002" y="50.824587706146929"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="mZG-Lu-uW6">
@@ -353,6 +373,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="informationIcon" width="2400" height="2400"/>
+        <image name="informationIcon" width="512" height="512"/>
     </resources>
 </document>

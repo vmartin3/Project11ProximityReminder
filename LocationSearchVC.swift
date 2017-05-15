@@ -1,5 +1,5 @@
 //
-//  LocationSearchTableVC.swift
+//  LocationSearchVC.swift
 //  Project11ProximityReminders
 //
 //  Created by Vernon G Martin on 5/10/17.
@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class LocationSearchTableVC: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
+class LocationSearchVC: UITableViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet var searchBarController: UISearchController!
@@ -26,6 +26,7 @@ class LocationSearchTableVC: UITableViewController, UISearchBarDelegate, UISearc
         super.viewDidLoad()
         self.navigationItem.titleView = searchBarController.searchBar
         LocationManager.sharedLocationInstance.determineMyCurrentLocation { (location) in
+            print("MY LOCATION IS: \(location)")
         }
     }
     
@@ -33,13 +34,9 @@ class LocationSearchTableVC: UITableViewController, UISearchBarDelegate, UISearc
         super.didReceiveMemoryWarning()
     }
     
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        updateSearchResults(for: searchBarController)
-    }
-    
     func updateSearchResults(for searchController: UISearchController) {
         matchingItems.removeAll()
-        var mapView = map
+        let mapView = map
         guard let searchBarText = searchBar.text else { return }
         
         let request = MKLocalSearchRequest()
@@ -67,7 +64,7 @@ class LocationSearchTableVC: UITableViewController, UISearchBarDelegate, UISearc
 }
 
 
-extension LocationSearchTableVC {
+extension LocationSearchVC: UISearchBarDelegate, UISearchDisplayDelegate {
     
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -79,21 +76,31 @@ extension LocationSearchTableVC {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "LocationCell")!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "LocationCell") as! LocationCell
         let selectedItem = matchingItems[indexPath.row].placemark
-        cell.textLabel?.text = selectedItem.name
-        cell.detailTextLabel?.text = ""
+        cell.locationNameLabel.text = selectedItem.name
+        
+        guard let city = selectedItem.addressDictionary?["City"], let state = selectedItem.addressDictionary?["State"],  let street = selectedItem.addressDictionary?["Thoroughfare"] else {
+            cell.locationAddressLabel.text = ("\(selectedItem.addressDictionary!["City"]!), \(selectedItem.addressDictionary!["State"]!)")
+            return cell
+        }
+        
+        cell.locationAddressLabel.text = ("\(city), \(state) - \(street)")
         return cell
     }
  
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath)
         indexPathForSelection = indexPath.row
         let selectedItem = matchingItems[indexPath.row].placemark
         self.destinationCoordinates = selectedItem.coordinate
         self.destiationName = selectedItem.name
         
         locationSetAlert()
+    }
+    
+    //MARK: - SearchBarDelegate Method
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        updateSearchResults(for: searchBarController)
     }
     
     
@@ -104,9 +111,10 @@ extension LocationSearchTableVC {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "unwindToDetailSegue"{
-            let detailVC = segue.destination as! LocationDetailTableView
+            let detailVC = segue.destination as! ReminderDetailsVC
             detailVC.locationText = self.destiationName!
-            detailVC.location = self.matchingItems[indexPathForSelection!]
+            detailVC.reminder.latitude = self.matchingItems[indexPathForSelection!].placemark.coordinate.latitude
+            detailVC.reminder.longitude = self.matchingItems[indexPathForSelection!].placemark.coordinate.longitude
             detailVC.locationisSet = true
         }
     }

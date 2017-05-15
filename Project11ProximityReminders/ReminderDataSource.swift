@@ -19,6 +19,6 @@ class ReminderDataSource {
     var reminderText: String?
     var completed: Bool?
     
-    var reminderDetailTable: LocationDetailTableView?
+    var reminderDetailTable: ReminderDetailsVC?
     
 }

@@ -23,7 +23,7 @@ class ReminderCell: UITableViewCell, UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        if !(textField.text?.isEmpty)! {
+        if !((textField.text?.isEmpty)!) {
             moreInfoButton.isHidden = true
         }else{
             moreInfoButton.isHidden = false
