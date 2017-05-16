@@ -38,7 +38,7 @@ class LocationManager: CLLocationManager {
     func setReminderRegion(reminder: ReminderDataSource){
         self.reminder = reminder
         let coordinates = CLLocationCoordinate2D(latitude: reminder.latitude!, longitude: reminder.longitude!)
-        self.region = CLCircularRegion(center: coordinates, radius: 400, identifier: reminder.reminderText!)
+        self.region = CLCircularRegion(center: coordinates, radius: 200, identifier: reminder.reminderText!)
         locationManager.startMonitoring(for: region!)
         let notification = Notification(reminder: self.reminder!)
         notification.triggerLocationNotification(region: self.region!)
