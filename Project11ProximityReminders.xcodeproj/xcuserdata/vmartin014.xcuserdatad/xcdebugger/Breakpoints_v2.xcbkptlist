@@ -34,12 +34,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project11ProximityReminders/LocationManager.swift"
-            timestampString = "516474743.231086"
+            timestampString = "516585324.620398"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "setReminderRegion(reminder:)"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
+            landmarkName = "locationManager(_:didStartMonitoringFor:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Project11ProximityReminders/NotificationsHandler.swift"
+            timestampString = "516586076.821805"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "triggerLocationNotification(region:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

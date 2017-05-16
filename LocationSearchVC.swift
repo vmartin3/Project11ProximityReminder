@@ -22,6 +22,8 @@ class LocationSearchVC: UITableViewController {
     
     var indexPathForSelection: Int?
     
+    static var whenLeaving: Bool?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.titleView = searchBarController.searchBar
@@ -53,12 +55,18 @@ class LocationSearchVC: UITableViewController {
     
     func locationSetAlert(){
         let alert = UIAlertController(title: "Reminder Location Set",
-                                      message: "You will be reminded when you get near \(destiationName!)",
+                                      message: "Choose to be remindeded when leaving or nearing \(destiationName!)",
                                       preferredStyle: .alert)
-        let done = UIAlertAction(title: "Okay", style: .default) { (okaySelected) in
+        let arriving = UIAlertAction(title: "Arriving", style: .default) { (okaySelected) in
+            LocationSearchVC.whenLeaving = false
             self.performSegue(withIdentifier: "unwindToDetailSegue", sender: self)
         }
-        alert.addAction(done)
+        let leaving = UIAlertAction(title: "Leaving", style: .default) { (okaySelected) in
+            LocationSearchVC.whenLeaving = true
+            self.performSegue(withIdentifier: "unwindToDetailSegue", sender: self)
+        }
+        alert.addAction(arriving)
+        alert.addAction(leaving)
         self.present(alert, animated: true)
     }
 }

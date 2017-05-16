@@ -38,8 +38,10 @@ class LocationManager: CLLocationManager {
     func setReminderRegion(reminder: ReminderDataSource){
         self.reminder = reminder
         let coordinates = CLLocationCoordinate2D(latitude: reminder.latitude!, longitude: reminder.longitude!)
-        self.region = CLCircularRegion(center: coordinates, radius: 200, identifier: reminder.reminderText!)
+        self.region = CLCircularRegion(center: coordinates, radius: 400, identifier: reminder.reminderText!)
         locationManager.startMonitoring(for: region!)
+        let notification = Notification(reminder: self.reminder!)
+        notification.triggerLocationNotification(region: self.region!)
     }
     
     //Sets date for reminder
@@ -67,10 +69,6 @@ extension LocationManager: CLLocationManagerDelegate {
         }
     }
     
-//    func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
-//        print("Monitoring failed for region with identifier: \(self.region.identifier)")
-//    }
-    
     //If there is an error while getting the users location
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Error while updating location \(error.localizedDescription)")
@@ -84,6 +82,12 @@ extension LocationManager: CLLocationManagerDelegate {
     //When the user enters a location trigger notifiation to be sent
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         print("User has entered monitored region")
+        let notification = Notification(reminder: self.reminder!)
+        notification.triggerLocationNotification(region: self.region!)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+        print("User has left monitored region")
         let notification = Notification(reminder: self.reminder!)
         notification.triggerLocationNotification(region: self.region!)
     }
